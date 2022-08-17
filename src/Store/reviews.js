@@ -13,8 +13,8 @@ export const setReviews = createAction('SET_REVIEWS');
 export const getReviews = () => async (dispatch, getState) => {
   // this will ultimately hit our 'reviews' database table
   let response = await axios.get(`${SERVER}/review`);
-  // console.log(response);
-  dispatch(setReviews(response));
+  console.log(response.data);
+  dispatch(setReviews(response.data));
 };
 
 // create reducer
