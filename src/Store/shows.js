@@ -3,6 +3,7 @@ import axios from 'axios';
 
 const ADD_SHOW = 'ADD_SHOW';
 const SET_SHOWS = 'SET_SHOWS';
+const SERVER = process.env.REACT_APP_SERVER || 3002;
 
 // creating actions
 export const addShow = createAction('ADD_SHOW');
@@ -10,8 +11,10 @@ export const setShows = createAction('SET_SHOWS');
 
 export const getShows = () => async (dispatch, getState) => {
   // this will ultimately hit our 'shows' database table
-  let response = await axios.get('https://api-js401.herokuapp.com/api/v1/categories');
-  dispatch(setShows(response.data.results));
+  // let response = await axios.get(`${SERVER}/show`);
+  let response = await axios.get(`http://localhost:3001/show`);
+  console.log('response: ', response);
+  dispatch(setShows(response));
 };
 
 // create reducer
