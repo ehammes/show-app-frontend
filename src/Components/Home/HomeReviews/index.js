@@ -1,33 +1,38 @@
-import { connect } from 'react-redux';
-// import { useEffect } from 'react';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { getShows } from './Store/shows';
-// import { selectOneShow } from '../../../Hooks/useShows';
-// import useShows from '../../../Hooks/useShows';
-import Header from '../../Header';
-import Footer from '../../Footer';
 
+import useShows from '../../../Hooks/useShows';
+import useReviews from '../../../Hooks/useReviews';
+import { Container } from '@mui/system';
+import { Grid } from '@mui/material';
+import './style.css';
 
-const Home = (props) => {
+function Home(){
+  
+  const { showList, addToList } = useShows();
+  const { reviewList, addToReviews } = useReviews();
 
-console.log(props)
+ 
 
-  return(
-    
-    <h1>Home!</h1>
-
+  return (
+  <>
+   
+   {reviewList.slice(0,4).map((review, idx) => 
+   <div className="homeReviews">
+    <Grid>
+      <Container key={`review-${idx}`}>
+        "{review.review}" - {showList.map((show, idx) => {
+          if(review.showId === show.id){
+            return <p key={`show-${idx}`}>{show.title}</p>
+          }
+        }
+        
+        )}
+      </Container>
+    </Grid>
+    </div>
+    )}
+  </>
   )
 }
 
-// const mapStateToProps = (state) => {
-//   return {
-//     shows: state.shows,
-//   }
-// }
+export default Home;
 
-// const mapDispatchToProps = {
-
-
-// }
-
-export default connect(Home);
