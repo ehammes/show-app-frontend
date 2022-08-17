@@ -1,0 +1,9 @@
+.homeReviews {
+  font-size: large;
+  font-weight: bolder;
+  background-color: orange;
+  width: 20%;
+  margin: 8px;
+  padding: 2%;
+  border-radius: 2em;
+}
