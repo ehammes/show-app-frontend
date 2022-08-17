@@ -9,6 +9,8 @@ import Header from './Components/Header';
 import './App.css';
 import axios from 'axios';
 
+const SERVER = process.env.REACT_APP_SERVER || 3002;
+
 function App() {
 
   const { showList, addToList } = useShows();
@@ -22,11 +24,11 @@ function App() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const show = event.target.value;
-    console.log(show);
+    const title = event.target.addShow.value;
+    console.log('title: ', { params: { title } });
     // this will ultimately get from our server/newShow route to get matching shows from MovieDB API
-    let response = await axios.get('https://api-js401.herokuapp.com/api/v1/products', show);
-    console.log(response);
+    let response = await axios.get(`${SERVER}/moviedb`, { params: { title } });
+    console.log(response.data);
   }
 
   return (
@@ -37,7 +39,7 @@ function App() {
         <h2>Add New Show!</h2>
         <label>
           <span>Enter Show Title</span>
-          <input name='add-show' type='text' required />
+          <input id='addShow' name='add-show' type='text' required />
         </label>
         <label>
           <button type='submit'>Submit</button>
