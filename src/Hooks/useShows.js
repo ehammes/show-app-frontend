@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { addShow } from '../Store/shows';
+import { addShow, selectShow } from '../Store/shows';
 
 export default function useShows() {
   let showList = useSelector(state => state.shows.list);
@@ -9,8 +9,13 @@ export default function useShows() {
     dispatch(addShow(show));
   }
 
+  let selectOneShow = (show) => {
+    dispatch(selectShow(show));
+  }
+
   return {
     showList,
     addToList,
+    selectOneShow,
   }
 }
