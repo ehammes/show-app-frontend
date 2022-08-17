@@ -44,9 +44,9 @@ function App() {
       </form>
 
       <h1>Show Library</h1>
-      {showList.map((show, idx) => <p key={`show-${idx}`}>{show.name}</p>)}
+      {showList.map((show, idx) => <p key={`show-${idx}`}>{show.title}</p>)}
       <h1>Reviews</h1>
-      {reviewList.map((review, idx) => <p key={`review-${idx}`}>{review.description}</p>)}
+      {reviewList.map((review, idx) => <p key={`review-${idx}`}>{review.review}</p>)}
     </div>
 
   );
