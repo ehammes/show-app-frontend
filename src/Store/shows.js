@@ -3,11 +3,13 @@ import axios from 'axios';
 
 const ADD_SHOW = 'ADD_SHOW';
 const SET_SHOWS = 'SET_SHOWS';
+const SELECT_SHOW = 'SELECT_SHOW';
 const SERVER = process.env.REACT_APP_SERVER || 3002;
 
 // creating actions
 export const addShow = createAction('ADD_SHOW');
 export const setShows = createAction('SET_SHOWS');
+export const selectShow = createAction('SELECT_SHOW');
 
 export const getShows = () => async (dispatch, getState) => {
   // this will ultimately hit our 'shows' database table
@@ -21,6 +23,7 @@ export const getShows = () => async (dispatch, getState) => {
 const showReducer = createReducer({
   // initial state
   list: [],
+  selectedShow: null,
 }, {
   // adding a show to state
   [ADD_SHOW]: (state, action) => ({
@@ -29,7 +32,11 @@ const showReducer = createReducer({
   // setting all shows into state from database
   [SET_SHOWS]: (state, action) => ({
     list: action.payload,
-  })
+  }),
+  // setting selected show into state for use by Details component
+  [SELECT_SHOW]: (state, action) => ({
+    selectedShow: action.payload,
+  }),
 });
 
 export default showReducer;

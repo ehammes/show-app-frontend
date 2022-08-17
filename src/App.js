@@ -5,6 +5,7 @@ import { getReviews } from './Store/reviews';
 import useShows from './Hooks/useShows';
 import useReviews from './Hooks/useReviews';
 import Header from './Components/Header';
+import ShowDetails from './Components/Details/ShowDetails';
 
 import './App.css';
 import axios from 'axios';
@@ -50,6 +51,9 @@ function App() {
       {showList.map((show, idx) => <p key={`show-${idx}`}>{show.title}</p>)}
       <h1>Reviews</h1>
       {reviewList.map((review, idx) => <p key={`review-${idx}`}>{review.review}</p>)}
+      <br></br>
+      <br></br>
+      <ShowDetails />
     </div>
 
   );
