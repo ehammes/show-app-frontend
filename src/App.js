@@ -4,6 +4,7 @@ import { getShows } from './Store/shows';
 import { getReviews } from './Store/reviews';
 import useShows from './Hooks/useShows';
 import useReviews from './Hooks/useReviews';
+import Header from './Components/Header';
 
 import './App.css';
 import axios from 'axios';
@@ -31,7 +32,7 @@ function App() {
   return (
 
     <div className="App">
-
+      <Header />
       <form onSubmit={handleSubmit}>
         <h2>Add New Show!</h2>
         <label>
