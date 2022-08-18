@@ -7,17 +7,20 @@ import useShows from '../../../Hooks/useShows';
 // import Footer from '../../Footer';
 import { ImageListItem, Container, Grid, Button, ButtonGroup, Paper } from '@mui/material';
 import { experimentalStyled as styled } from '@mui/material/styles';
+import SearchForm from '../../Search/SearchForm';
+import { Link } from 'react-router-dom';
+
 
 const Library = () => {
 
   const { showList, addToList } = useShows();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getShows());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getShows());
+  // }, []);
 
-  console.log('showList', showList)
+  // console.log('showList', showList)
 
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -30,7 +33,7 @@ const Library = () => {
   return (
     <>
       <h1>Show Library</h1>
-      <Button>Add a TV Show</Button>
+
       <Container maxWidth="md">
         <Grid
           container
@@ -60,7 +63,10 @@ const Library = () => {
                   variant="contained"
                   size="small"
                 >
-                  <Button>Learn More</Button>
+                  <Button
+                    component={Link}
+                    to={`/details/${show.id}`}
+                  >Learn More</Button>
                   <Button>Add to My List</Button>
                 </ButtonGroup>
               </Item>
@@ -68,6 +74,8 @@ const Library = () => {
           )}
         </Grid>
       </Container>
+      <Button>Add a TV Show</Button>
+      <SearchForm />
     </>
   )
 }

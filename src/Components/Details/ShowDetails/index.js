@@ -8,22 +8,21 @@ import useShows from '../../../Hooks/useShows';
 import useReviews from '../../../Hooks/useReviews';
 import { useDispatch } from 'react-redux';
 import './style.css';
+import { useParams } from 'react-router-dom';
 
-function ShowDetails() {
+function ShowDetails({ someId }) {
+
+  const params = useParams();
+  console.log('params', params);
 
   const { showList, addToList } = useShows();
   const { reviewList, addToReviews } = useReviews();
   const dispatch = useDispatch();
 
-  let oneShow = {
-    img: showList[0].image,
-    title: showList[0].title,
-    genre: showList[0].genre,
-    rating: showList[0].avgRating,
-    description: showList[0].description,
-  }
+  let oneShow = showList.find(show => show.id === +params.id);
 
-  console.log(oneShow);
+
+  console.log('one Show: ', oneShow);
 
   return (
 
@@ -32,8 +31,8 @@ function ShowDetails() {
         <CardMedia
           component="img"
           // height="140"
-          image={require('../ShowDetails/the_bear.jpg')}
-          alt="cover image for The Bear"
+          image={`https://image.tmdb.org/t/p/w500${oneShow.image}`}
+          alt={oneShow.description}
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
@@ -54,5 +53,9 @@ function ShowDetails() {
   );
 
 }
+
+// const mapStateToProps = (state, originalProps) => ({
+//   someId: originalProps.match.params.id,
+// });
 
 export default ShowDetails;

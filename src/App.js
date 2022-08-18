@@ -28,84 +28,55 @@ function App() {
     dispatch(getReviews());
   }, []);
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const title = event.target.addShow.value;
-    console.log('title: ', { params: { title } });
-    // this will ultimately get from our server/newShow route to get matching shows from MovieDB API
-    let response = await axios.get(`${SERVER}/moviedb`, { params: { title } });
-    console.log(response.data);
-  }
-
   return (
 
     <div className="App">
-    <BrowserRouter>
-      <Routes>
-        {/* homepage route */}
-        <Route
-          exact path="/"
-          element= {
-            <>
-              <Header />
-              <Home />
-              <Footer />
-            </>
-          }>
-        </Route>
-        {/* library route */}
-        <Route
-        exact path="/library"
-        element= {
-          <>
-          <Library />
-          </>
-        }
-        >
-        </Route>
-        {/* show details route */}
-        <Route
-         exact path="/details/:id"
-         element= {
-           <>
-           <ShowDetails />
-           </>
-         }
-        >
-        </Route>
-        {/* user account route */}
-        <Route   
-          exact path="/account/:id"
-          element= {
-           <>
-           {/* <Account? UserLibrary? /> */}
-           </>
-         }>
-         </Route>
-      </Routes>
-    </BrowserRouter>
-    </div>
-    // <div className="App">
-    //   <Header />
-    //   <form onSubmit={handleSubmit}>
-    //     <h2>Add New Show!</h2>
-    //     <label>
-    //       <span>Enter Show Title</span>
-    //       <input id='addShow' name='add-show' type='text' required />
-    //     </label>
-    //     <label>
-    //       <button type='submit'>Submit</button>
-    //     </label>
-    //   </form>
+      <BrowserRouter>
+        <Routes>
+          {/* homepage route */}
+          <Route
+            exact path="/"
+            element={
+              <>
+                <Header />
+                <Home />
 
-    //   <h1>Show Library</h1>
-    //   {showList.map((show, idx) => <p key={`show-${idx}`}>{show.title}</p>)}
-    //   <h1>Reviews</h1>
-    //   {reviewList.map((review, idx) => <p key={`review-${idx}`}>{review.review}</p>)}
-    //   <br></br>
-    //   <br></br>
-    //   <ShowDetails />
-    // </div>
+                <Footer />
+              </>
+            }>
+          </Route>
+          {/* library route */}
+          <Route
+            exact path="/library"
+            element={
+              <>
+                <Library />
+              </>
+            }
+          >
+          </Route>
+          {/* show details route */}
+          <Route
+            exact path="/details/:id"
+            element={
+              <>
+                <ShowDetails />
+              </>
+            }
+          >
+          </Route>
+          {/* user account route */}
+          <Route
+            exact path="/account/:id"
+            element={
+              <>
+                {/* <Account? UserLibrary? /> */}
+              </>
+            }>
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </div>
 
   );
 }
