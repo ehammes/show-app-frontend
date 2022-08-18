@@ -32,7 +32,7 @@ const Library = () => {
 
   return (
     <>
-      <Header></Header>
+      <Header />
       <h1>Show Library</h1>
 
       <Container maxWidth="md">
