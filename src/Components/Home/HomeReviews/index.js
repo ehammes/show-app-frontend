@@ -9,13 +9,11 @@ function Home(){
   const { showList, addToList } = useShows();
   const { reviewList, addToReviews } = useReviews();
 
- 
-
   return (
   <>
    
    {reviewList.slice(0,4).map((review, idx) => 
-   <div className="homeReviews">
+   <div className="homeReviews" key={`homeReviews-${idx}`}>
       <Container key={`review-${idx}`}>
         "{review.review}" - {showList.map((show, idx) => {
           if(review.showId === show.id){
