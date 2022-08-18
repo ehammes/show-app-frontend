@@ -45,9 +45,9 @@ function UserLibrary() {
       <Container maxWidth="md">
         <ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164}>
           {userShowList.map((item) => (
-            <ImageListItem key={item.img}>
+            <ImageListItem key={item.image}>
               <img
-                src={`https://via.placeholder.com/150`}
+                src={`https://image.tmdb.org/t/p/w500${item.image}`}
                 alt={item.title}
                 loading="lazy"
               />
