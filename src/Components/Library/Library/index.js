@@ -3,8 +3,8 @@ import { useDispatch } from 'react-redux';
 import { getShows } from '../../../Store/shows';
 // import { selectOneShow } from '../../../Hooks/useShows';
 import useShows from '../../../Hooks/useShows';
-// import Header from '../../Header';
-// import Footer from '../../Footer';
+import Header from '../../Header';
+import Footer from '../../Footer';
 import { ImageListItem, Container, Grid, Button, ButtonGroup, Paper } from '@mui/material';
 import { experimentalStyled as styled } from '@mui/material/styles';
 import SearchForm from '../../Search/SearchForm';
@@ -32,6 +32,7 @@ const Library = () => {
 
   return (
     <>
+      <Header></Header>
       <h1>Show Library</h1>
 
       <Container maxWidth="md">
@@ -67,7 +68,6 @@ const Library = () => {
                     component={Link}
                     to={`/details/${show.id}`}
                   >Learn More</Button>
-                  <Button>Add to My List</Button>
                 </ButtonGroup>
               </Item>
             </Grid>
@@ -76,6 +76,7 @@ const Library = () => {
       </Container>
       <Button>Add a TV Show</Button>
       <SearchForm />
+      <Footer></Footer>
     </>
   )
 }

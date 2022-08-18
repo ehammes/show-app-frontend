@@ -93,7 +93,7 @@ function SearchForm() {
                   size="small"
                 >
                   {/* <Button>Learn More</Button> */}
-                  <Button onClick={() => handleClick(show)}>Add to My List</Button>
+                  <Button onClick={() => handleClick(show)}>Select This Title</Button>
                 </ButtonGroup>
               </Item>
             </Grid>
