@@ -9,7 +9,7 @@ const Header = (props) => {
       <div className="header">
         <Button><Link to="/library">Library</Link></Button>
         <h1>TV REVIEW APP</h1>
-        <Button><Link to="/account/:id">My Account</Link></Button>
+        <Button><Link to="/user/:id">My Account</Link></Button>
         <Button><Link to="/login">Login</Link></Button>
         <Button>Logout</Button>
 
