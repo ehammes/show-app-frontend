@@ -1,3 +1,15 @@
-.MuiPaper-root {
+/* .MuiPaper-root {
   display: flex,
+} */
+
+
+
+.details-card {
+  display: flex;
+  justify-content: center;
+}
+
+.review-form {
+  display: flex;
+  justify-content: center;
 }

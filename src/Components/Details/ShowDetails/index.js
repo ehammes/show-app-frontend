@@ -8,51 +8,74 @@ import useShows from '../../../Hooks/useShows';
 import useReviews from '../../../Hooks/useReviews';
 import { useDispatch } from 'react-redux';
 import './style.css';
+import { useParams } from 'react-router-dom';
+import Header from '../../Header'
+import Footer from '../../Footer'
 
-function ShowDetails() {
+function ShowDetails({ someId }) {
+
+  const params = useParams();
+  console.log('params', params);
 
   const { showList, addToList } = useShows();
   const { reviewList, addToReviews } = useReviews();
   const dispatch = useDispatch();
 
-  let oneShow = {
-    img: showList[0].image,
-    title: showList[0].title,
-    genre: showList[0].genre,
-    rating: showList[0].avgRating,
-    description: showList[0].description,
+  let oneShow = showList.find(show => show.id === +params.id);
+
+  function handleSubmit() {
+
   }
 
-  console.log(oneShow);
+  console.log('one Show: ', oneShow);
 
   return (
+    <>
+      <Header></Header>
+      <div className='details-card'>
+        <Card sx={{ maxWidth: 800 }}>
+          <CardActionArea>
+            <CardMedia
+              component="img"
+              // height="600"
+              image={`https://image.tmdb.org/t/p/w500${oneShow.image}`}
+              alt={oneShow.description}
+            />
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="div">
+                {oneShow.title}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                {oneShow.description}
+              </Typography>
+            </CardContent>
+          </CardActionArea>
+          <CardActions>
+            {/* <Button size="small" color="primary">
+            Leave a Review to add to your library</Button> */}
+          </CardActions>
+        </Card>
+        <div className='review-form'>
 
-    <Card sx={{ maxWidth: 800 }}>
-      <CardActionArea>
-        <CardMedia
-          component="img"
-          // height="140"
-          image={require('../ShowDetails/the_bear.jpg')}
-          alt="cover image for The Bear"
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {oneShow.title}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {oneShow.description}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      <CardActions>
-        <Button size="small" color="primary">
-          Add To My Shows!
-        </Button>
-      </CardActions>
-    </Card>
-
+          <form onSubmit={handleSubmit}>
+            <label>
+              <span>Leave a Review Here:</span>
+              <input id='addShow' name='add-show' type='text' required />
+            </label>
+            <label>
+              <button type='submit'>Submit</button>
+            </label>
+          </form>
+        </div>
+      </div>
+      <Footer></Footer>
+    </>
   );
 
 }
+
+// const mapStateToProps = (state, originalProps) => ({
+//   someId: originalProps.match.params.id,
+// });
 
 export default ShowDetails;
