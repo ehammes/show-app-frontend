@@ -1,68 +1,76 @@
 import useShows from '../../../Hooks/useShows';
-import useUsers from '../../../Hooks/useUsers';
-import useReviews from '../../../Hooks/useReviews';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
-import { ImageListItem, Container, Grid, Button, ButtonGroup, Paper } from '@mui/material';
-import { experimentalStyled as styled } from '@mui/material/styles';
+import { ImageListItem, Container, ImageList, ImageListItemBar, IconButton, Button } from '@mui/material';
 
 import './style.css';
+import axios from 'axios';
+
+const SERVER = process.env.REACT_APP_SERVER;
 
 
-function UserLibrary(){
-  
+function UserLibrary() {
+
+  // hard code - switch to useContext
+  const id = 1;
+
   const { showList, addToList } = useShows();
-  const { userList, addToUserList } = useUsers();
-  const { reviewList, addToReviews } = useReviews();
-
-
-  console.log('USER LIST', userList);
+  const [userShowList, setUserShowList] = useState([]);
   console.log('SHOW LIST', showList);
-  console.log('REVIEWS LIST', reviewList);
 
-  const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-    ...theme.typography.body2,
-    padding: theme.spacing(2),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  }));
+
+  useEffect(() => {
+    (async () => {
+      let response = await axios.get(`${SERVER}/user/${id}`);
+      let reviews = response.data;
+      let showIds = reviews.reduce((ids, show) => {
+        ids.push(show.showId);
+        return ids;
+      }, []);
+      console.log('SHOW IDS', showIds);
+      let userShows = showList.filter(show => showIds.includes(show.id));
+
+      setUserShowList(userShows);
+      console.log('USER SHOWS', userShows);
+    })();
+  }, [])
+
 
   return (
-   <>
-      <h1>My Shows</h1>
+    <>
 
+      <h1>My Shows</h1>
+      <div className='userLibrary'>
       <Container maxWidth="md">
-        <Grid
-          container
-          spacing={{ xs: 2, md: 3 }}
-          columns={{ xs: 4, sm: 8, md: 12 }}
-        >
-          {showList.map((show, idx) =>
-            <Grid
-              xs={2} sm={4} md={4}
-              key={`show-${idx}`}
-            >
-              <Item
-                sx={{ width: 250 }}
-              >
-                <h2>{show.title}</h2>
-                <ImageListItem
-                  sx={{ width: 250 }}
-                  position="center"
-                >
-                  <img
-                    src={`https://image.tmdb.org/t/p/w500${show.image}`}
-                    alt={`${show.image}`}
-                    loading="lazy"
-                  ></img>
-                </ImageListItem>
-          
-              </Item>
-            </Grid>
-          )}
-        </Grid>
+        <ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164}>
+          {userShowList.map((item) => (
+            <ImageListItem key={item.img}>
+              <img
+                src={`https://via.placeholder.com/150`}
+                alt={item.title}
+                loading="lazy"
+              />
+              <ImageListItemBar
+                title={item.title}
+                actionIcon={
+                  <IconButton
+                    sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
+                    aria-label={`info about ${item.title}`}
+                  >
+                  </IconButton>
+                }
+              />
+            </ImageListItem>
+
+          ))}
+        </ImageList>
       </Container>
-  </>
+      </div>
+      <div className='browseDiv'>
+        <Button variant="outlined"><Link to="/library">Browse Shows</Link></Button>
+      </div>
+    </>
   )
 }
 

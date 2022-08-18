@@ -1,0 +1,8 @@
+.userLibrary {
+  display: inline-flex;
+}
+
+.browseDiv {
+  float: right;
+  margin-right: 4%;
+}

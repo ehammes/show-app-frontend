@@ -84,6 +84,7 @@ function App() {
           exact path="/user/:id"
           element= {
            <>
+           <Header />
            <UserLibrary />
            </>
          }>
@@ -100,8 +101,6 @@ function App() {
         </Route>
       </Routes>
     </BrowserRouter>
-
-    <UserLibrary />
     </div>
 
     // <div className="App">
