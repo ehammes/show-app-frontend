@@ -2,7 +2,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import useShows from '../../../Hooks/useShows';
 import axios from 'axios';
-import { setMovieDbShows } from '../../../Store/shows';
+import { getShows, setMovieDbShows } from '../../../Store/shows';
 import { addToList } from '../../../Hooks/useShows';
 import { ImageListItem, Container, Grid, Button, ButtonGroup, Paper } from '@mui/material';
 import { experimentalStyled as styled } from '@mui/material/styles';
@@ -44,6 +44,7 @@ function SearchForm() {
     console.log('normalized show to be added to db: ', movieDbShowToAdd);
     // dispatch(addToList(movieDbShowToAdd));
     await axios.post(`${SERVER}/show`, movieDbShowToAdd);
+    dispatch(getShows());
   }
 
   return (

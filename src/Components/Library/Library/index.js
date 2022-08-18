@@ -16,9 +16,9 @@ const Library = () => {
   const { showList, addToList } = useShows();
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(getShows());
-  // }, []);
+  useEffect(() => {
+    dispatch(getShows());
+  }, []);
 
   // console.log('showList', showList)
 
