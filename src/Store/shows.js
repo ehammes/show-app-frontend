@@ -13,8 +13,10 @@ export const selectShow = createAction('SELECT_SHOW');
 
 export const getShows = () => async (dispatch, getState) => {
   // this will ultimately hit our 'shows' database table
+
   // let response = await axios.get(`${SERVER}/show`);
   let response = await axios.get(`${SERVER}/show`);
+
   // console.log('response: ', response.data);
   dispatch(setShows(response.data));
 };
