@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { getShows } from '../../../Store/shows';
 // import { selectOneShow } from '../../../Hooks/useShows';
 import useShows from '../../../Hooks/useShows';
-// import Header from '../../Header';
+import Header from '../../Header';
 // import Footer from '../../Footer';
 import { ImageListItem, Container, Grid, Button, ButtonGroup, Paper } from '@mui/material';
 import { experimentalStyled as styled } from '@mui/material/styles';
@@ -29,6 +29,7 @@ const Library = () => {
 
   return (
     <>
+      <Header />
       <h1>Show Library</h1>
       <Button>Add a TV Show</Button>
       <Container maxWidth="md">
