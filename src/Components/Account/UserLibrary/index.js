@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { ImageListItem, Container, ImageList, ImageListItemBar, IconButton, Button } from '@mui/material';
+import InfoIcon from '@mui/icons-material/Info';
 
 import './style.css';
 import axios from 'axios';
@@ -43,7 +44,7 @@ function UserLibrary() {
       <h1>My Shows</h1>
       <div className='userLibrary'>
       <Container maxWidth="md">
-        <ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164}>
+        <ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164} key={'imgList'}>
           {userShowList.map((item) => (
             <ImageListItem key={item.image}>
               <img
@@ -53,13 +54,6 @@ function UserLibrary() {
               />
               <ImageListItemBar
                 title={item.title}
-                actionIcon={
-                  <IconButton
-                    sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
-                    aria-label={`info about ${item.title}`}
-                  >
-                  </IconButton>
-                }
               />
             </ImageListItem>
 
