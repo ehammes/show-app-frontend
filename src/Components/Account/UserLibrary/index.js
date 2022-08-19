@@ -2,7 +2,7 @@ import useShows from '../../../Hooks/useShows';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { ImageListItem, Container, ImageList, ImageListItemBar, IconButton, Button } from '@mui/material';
+import { ImageListItem, Container, ImageList, ImageListItemBar, Button, Paper} from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
 
 import './style.css';
@@ -43,6 +43,7 @@ function UserLibrary() {
 
       <h1>My Shows</h1>
       <div className='userLibrary'>
+      <Paper elevation={4}>
       <Container maxWidth="md">
         <ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164} key={'imgList'}>
           {userShowList.map((item) => (
@@ -54,12 +55,14 @@ function UserLibrary() {
               />
               <ImageListItemBar
                 title={item.title}
+                position="bottom"
               />
             </ImageListItem>
 
           ))}
         </ImageList>
       </Container>
+      </Paper>  
       </div>
       <div className='browseDiv'>
         <Button variant="outlined"><Link to="/library">Browse Shows</Link></Button>
