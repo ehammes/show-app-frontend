@@ -8,27 +8,35 @@ import './style.css';
 
 const Header = () => {
 
-  const { isLoggedIn } = useContext(AuthContext);
+  const { isLoggedIn, logout } = useContext(AuthContext);
+
+  function logoutUser() {
+    logout()
+  }
 
   return (
     <>
-      <AppBar 
+      <AppBar
         position="static"
         color="transparent"
       >
         <Toolbar>
-          <IconButton><Link to="/"><HomeIcon/></Link></IconButton>
+          <IconButton><Link to="/"><HomeIcon /></Link></IconButton>
           <When condition={isLoggedIn}>
             <Button><Link to="/library">Library</Link></Button>
           </When>
-          <Button><Link to="/library">Library</Link></Button>
           <h1>TV REVIEW APP</h1>
-          <Button><Link to="/user/:id">My Account</Link></Button>
-           <When condition={!isLoggedIn}>
-           <Button><Link to="/login">Login</Link></Button>
+          <When condition={isLoggedIn}>
+            <Button><Link to="/user/:id">My Account</Link></Button>
+          </When>
+          <When condition={!isLoggedIn}>
+            <Button><Link to="/login">Login</Link></Button>
           </When>
           <When condition={isLoggedIn}>
-            <Button>Logout</Button>
+            <Button
+              component={Link}
+              to={'/'}
+              onClick={logoutUser}>Logout</Button>
           </When>
         </Toolbar>
       </AppBar>

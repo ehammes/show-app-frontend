@@ -1,48 +1,46 @@
 
 import { useContext, useState } from "react";
-import useForm from '../../../Hooks/form';
 import { AuthContext } from "../../../Context/Auth";
+import useForm from '../../../Hooks/form';
 import Header from '../../Header';
-// import Footer from '../../Footer';
-import { Container, FormControl, InputLabel, Input, Button, Accordion, AccordionSummary, Typography, FormHelperText } from '@mui/material';
+import Footer from '../../Footer';
+import { Container, FormControl, InputLabel, Input, Button, Accordion, AccordionSummary, Typography, FormHelperText, Alert } from '@mui/material';
+import CheckIcon from '@mui/icons-material/Check';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-// import axios from 'axios';
+import axios from 'axios';
 import { When } from "react-if";
 
-// const SERVER = process.env.REACT_APP_SERVER
+import './style.css';
+
+const SERVER = process.env.REACT_APP_SERVER
 
 
 const Login = () => {
 
-
-  const [defaultValues] = useState({})
   const { isLoggedIn, login } = useContext(AuthContext);
+  const [defaultValues] = useState({})
+  const [createSuccess, setCreateSuccess] = useState(null)
   const { handleChange, handleSubmit } = useForm(loginUser, defaultValues);
   const [expanded, setExpanded] = useState('login');
 
-  // const [createSuccess, setCreateSuccess] = useState(null)
-  // const [loginSuccess, setLoginSuccess] = useState(null)
 
   function loginUser({ username, password }) {
     login(username, password)
-  }  
+  }
 
-  /// Need to revisit for when a user provides invalid credentials
-
-
-  // const handleSubmitCreate = async (event) => {
-  //   event.preventDefault();
-  //   const email = event.target.createEmail.value;
-  //   const password = event.target.createPassword.value;
-  //   let response = await axios.post(`${SERVER}/signup`, { email, password });
-  //   console.log('response', response)
-  //   if (response.statusText === 'Created') {
-  //     setCreateSuccess(true)
-  //   } else {
-  //     setCreateSuccess(false)
-  //   }
-  //   console.log('createSuccess', createSuccess)
-  // }
+  const handleSubmitCreate = async (event) => {
+    event.preventDefault();
+    const email = event.target.createEmail.value;
+    const password = event.target.createPassword.value;
+    let response = await axios.post(`${SERVER}/signup`, { email, password });
+    console.log('response', response)
+    if (response.statusText === 'Created') {
+      setCreateSuccess(true)
+    } else {
+      setCreateSuccess(false)
+    }
+    console.log('createSuccess', createSuccess)
+  }
 
   const handleEventChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
@@ -51,10 +49,18 @@ const Login = () => {
   return (
     <>
       <Header />
-      <Typography variant='h3'>Login / Create an Account</Typography>
       <Container maxWidth="md">
-
+        <When condition={isLoggedIn}>
+          <Alert icon={<CheckIcon fontSize="inherit" />} severity="success">
+            Success!
+          </Alert>
+        </When>
         <When condition={!isLoggedIn}>
+          <div
+            className='sign-account'
+          >
+            <Typography variant='h5'>Signin to your account</Typography>
+          </div>
           <Accordion
             expanded={expanded === 'login'}
             onChange={handleEventChange('login')}
@@ -63,31 +69,18 @@ const Login = () => {
               expandIcon={<ExpandMoreIcon />}
             >
               <Typography
-                variant='h5'
+                variant='h6'
               >Login</Typography>
             </AccordionSummary>
             <form
               onSubmit={handleSubmit}
               id="loginForm"
             >
-              <div>
-                <FormControl>
-
-                  <InputLabel htmlFor="my-input">Email address</InputLabel>
-                  <Input
-                    name="username"
-                    onChange={handleChange}
-                    required
-                    sx={
-                      { width: 750 }
-                    }
-                  />
-                </FormControl>
-              </div>
               <FormControl>
-                <InputLabel htmlFor="my-input">Password</InputLabel>
+
+                <InputLabel htmlFor="my-input">Email address</InputLabel>
                 <Input
-                  name="password"
+                  name="username"
                   onChange={handleChange}
                   required
                   sx={
@@ -95,77 +88,105 @@ const Login = () => {
                   }
                 />
               </FormControl>
-              <div>
+              <FormControl>
+                <InputLabel htmlFor="my-input">Password</InputLabel>
+
+                  <Input
+                    name="password"
+                    onChange={handleChange}
+                    type="password"
+                    required
+                    sx={
+                      { width: 750 }
+                    }
+                  />
+              </FormControl>
+              <div
+                className='button'
+              >
                 <Button
                   type="submit"
                   variant="contained"
                 >Login</Button>
               </div>
-              {isLoggedIn === true ?
-                <p>Success!</p>
-                :
-                null
-              }
-              {isLoggedIn === false ?
-                <p>Invalid Credentials</p>
-                :
-                null
-              }
             </form>
           </Accordion>
         </When>
 
-        {/* <Accordion
-          expanded={expanded === 'createAccount'}
-          onChange={handleEventChange('createAccount')}
-        >
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
+        <When condition={!isLoggedIn}>
+          <div
+            className='sign-account'
           >
-            <Typography
-              variant='h5'
+            <Typography variant='h5'>Create Account</Typography>
+          </div>
+          <Accordion
+            expanded={expanded === 'createAccount'}
+            onChange={handleEventChange('createAccount')}
+          >
+            <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
-            >Create an Account</Typography>
-          </AccordionSummary>
-          <form
-            onSubmit={handleSubmitCreate}
-            id="createForm"
-          >
-            <FormControl>
-              <InputLabel htmlFor="my-input">Email Address</InputLabel>
-              <Input
-                id="createEmail"
-                name="createEmail"
-                required
-                sx={
-                  { width: 750 }
+            >
+              <Typography
+                variant='h6'
+              >Create an Account</Typography>
+            </AccordionSummary>
+            <form
+              onSubmit={handleSubmitCreate}
+              id="createForm"
+            >
+              <FormControl>
+                <InputLabel htmlFor="my-input">Email Address</InputLabel>
+                <Input
+                  name="createEmail"
+                  required
+                  sx={
+                    { width: 750 }
 
-                }
-              />
-            </FormControl>
-            <FormControl>
-              <InputLabel htmlFor="my-input">Password</InputLabel>
-              <Input
-                id="createPassword"
-                name="createPassword"
-                required
-                sx={
-                  { width: 750 }
-                }
-              />
-              <FormHelperText id="helper-text">Must contain between 8-20 characters, letters and numbers only</FormHelperText>
-            </FormControl>
-            <Button
-              type="submit"
-              variant="contained"
-            >Create Account</Button>
-            {/* {createSuccess === true ? <p>Account has been created</p> : null}
-            {createSuccess === false ? <p>Unable to create account</p> : null} */}
-          {/* </form> */}
-
-        {/* </Accordion> */}
+                  }
+                />
+              </FormControl>
+              <FormControl>
+                <InputLabel htmlFor="my-input">Password</InputLabel>
+                <Input
+                  name="createPassword"
+                  type="password"
+                  required
+                  sx={
+                    { width: 750 }
+                  }
+                />
+                <FormHelperText id="helper-text">Must contain between 8-20 characters, letters and numbers only</FormHelperText>
+              </FormControl>
+              <div
+                className='button'
+              >
+                <Button
+                  type="submit"
+                  variant="contained"
+                >Create Account</Button>
+              </div>
+              <When condition={isLoggedIn}>
+                <Alert icon={<CheckIcon fontSize="inherit" />} severity="success">
+                  Account created successfully! Please Login.
+                </Alert>
+              </When>
+              {createSuccess === true
+                ?
+                <Alert
+                  icon={<CheckIcon fontSize="inherit" />} severity="success"
+                >
+                  Account created successfully! Please Login.
+                </Alert>
+                :
+                null
+              }
+              {createSuccess === false ? <p>Unable to create account, please try again.</p> : null}
+            </form>
+          </Accordion>
+        </When>
 
       </Container>
+      <Footer />
     </>
   )
 }
