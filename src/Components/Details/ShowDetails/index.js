@@ -3,7 +3,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { Button, CardActionArea, CardActions } from '@mui/material';
+import { CardActionArea } from '@mui/material';
 import useShows from '../../../Hooks/useShows';
 import useReviews from '../../../Hooks/useReviews';
 import { useDispatch } from 'react-redux';
@@ -11,12 +11,16 @@ import './style.css';
 import { useParams } from 'react-router-dom';
 import Header from '../../Header'
 import Footer from '../../Footer'
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import FormGroup from '@mui/material/FormGroup';
+
+
 
 function ShowDetails({ someId }) {
 
   const params = useParams();
-  console.log('params', params);
-
   const { showList, addToList } = useShows();
   const { reviewList, addToReviews } = useReviews();
   const dispatch = useDispatch();
@@ -24,16 +28,14 @@ function ShowDetails({ someId }) {
   let oneShow = showList.find(show => show.id === +params.id);
 
   function handleSubmit() {
-
+    console.log('review submitted');
   }
-
-  console.log('one Show: ', oneShow);
 
   return (
     <>
       <Header></Header>
       <div className='details-card'>
-        <Card sx={{ maxWidth: 800 }}>
+        <Card sx={{ maxWidth: 400 }}>
           <CardActionArea>
             <CardMedia
               component="img"
@@ -50,32 +52,54 @@ function ShowDetails({ someId }) {
               </Typography>
             </CardContent>
           </CardActionArea>
-          <CardActions>
-            {/* <Button size="small" color="primary">
-            Leave a Review to add to your library</Button> */}
-          </CardActions>
         </Card>
-        <div className='review-form'>
+      </div>
+      <div className='show-reviews'>
 
-          <form onSubmit={handleSubmit}>
-            <label>
-              <span>Leave a Review Here:</span>
-              <input id='addShow' name='add-show' type='text' required />
-            </label>
-            <label>
-              <button type='submit'>Submit</button>
-            </label>
-          </form>
-        </div>
+        <Typography gutterBottom variant="h6" component="div">
+          Reviews for {oneShow.title}
+        </Typography>
+        {reviewList.map((review, idx) =>
+          <Typography variant="body2" color="text.secondary">
+            "{review.review}"
+          </Typography>
+        )}
+      </div>
+      <div className='leave-review'>
+
+        <Typography gutterBottom variant="h6" component="div">
+          Leave your own review:
+        </Typography>
+      </div>
+      <div className='review-form'>
+        <Box
+          display="flex"
+          alignItems="center"
+          component="form"
+          onSubmit={handleSubmit}
+          sx={{
+            '& .MuiTextField-root': { m: 1, width: '40ch' },
+          }}
+          noValidate
+          autoComplete="off"
+        >
+          <FormGroup>
+
+            <TextField
+              id="outlined-multiline-flexible"
+              label="Review"
+              multiline
+              maxRows={4}
+            // value="add review here"
+            // onChange={handleChange}
+            />
+            <Button variant="contained" style={{ width: '50%', margin: 'auto' }} >Submit</Button>
+          </FormGroup>
+        </Box>
       </div>
       <Footer></Footer>
     </>
   );
-
 }
-
-// const mapStateToProps = (state, originalProps) => ({
-//   someId: originalProps.match.params.id,
-// });
 
 export default ShowDetails;

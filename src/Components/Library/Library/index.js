@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { getShows } from '../../../Store/shows';
-// import { selectOneShow } from '../../../Hooks/useShows';
 import useShows from '../../../Hooks/useShows';
 import Header from '../../Header';
 import Footer from '../../Footer';
@@ -20,8 +19,6 @@ const Library = () => {
     dispatch(getShows());
   }, []);
 
-  // console.log('showList', showList)
-
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
@@ -33,7 +30,7 @@ const Library = () => {
   return (
     <>
       <Header />
-      <h1>Show Library</h1>
+      <h1>LIBRARY</h1>
 
       <Container maxWidth="md">
         <Grid
@@ -74,7 +71,6 @@ const Library = () => {
           )}
         </Grid>
       </Container>
-      <Button>Add a TV Show</Button>
       <SearchForm />
       <Footer></Footer>
     </>

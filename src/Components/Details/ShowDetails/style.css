@@ -1,12 +1,15 @@
-/* .MuiPaper-root {
-  display: flex,
-} */
-
-
-
 .details-card {
   display: flex;
   justify-content: center;
+  margin-top: 2vw;
+}
+
+.show-reviews {
+  margin-top: 4vw;
+}
+
+.leave-review {
+  margin-top: 6vw;
 }
 
 .review-form {
