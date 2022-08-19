@@ -10,7 +10,7 @@ const SERVER = process.env.REACT_APP_SERVER
 function AuthProvider({ children }) {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userId, setUserId] = useState(0)
+  const [userId, setUserId] = useState(0);
   const [user, setUser] = useState({});
   const [error, setError] = useState(null);
 
@@ -45,7 +45,6 @@ function AuthProvider({ children }) {
   function _validateToken(token, id) {
     try {
       let validUser = jwt_decode(token);
-      console.log('validUser', validUser)
       if (validUser) {
         setUser(validUser);
         setUserId(id)
@@ -57,7 +56,7 @@ function AuthProvider({ children }) {
       setError(e)
     }
   }
-
+  
   const logout = () => {
     setUser({});
     setIsLoggedIn(false);
