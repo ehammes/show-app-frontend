@@ -14,10 +14,6 @@ function UserLibrary() {
   // hard code - switch to useContext
   const { userId } = useContext(AuthContext);
 
-  const id = userId;
-  
-  console.log('ID ID ID', id);
-
   const { showList, addToList } = useShows();
   const [userShowList, setUserShowList] = useState([]);
 
@@ -50,10 +46,6 @@ function UserLibrary() {
                 src={`https://image.tmdb.org/t/p/w500${item.image}`}
                 alt={item.title}
                 loading="lazy"
-              />
-              <ImageListItemBar
-                title={item.title}
-                position="bottom"
               />
             </ImageListItem>
 
