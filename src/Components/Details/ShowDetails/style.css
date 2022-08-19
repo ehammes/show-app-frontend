@@ -15,4 +15,11 @@
 .review-form {
   display: flex;
   justify-content: center;
+  margin-bottom: 10vw;
+}
+
+.single-review {
+  margin: auto;
+  margin-top: 2vw;
+  width: 50%;
 }

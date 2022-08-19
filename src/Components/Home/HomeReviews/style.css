@@ -1,9 +1,28 @@
+.home-page {
+  display: flex;
+  margin-top: 30px;
+}
+
 .homeReviews {
-  font-size: large;
-  font-weight: bolder;
-  background-color: orange;
-  width: 20%;
-  margin: 8px;
-  padding: 2%;
+  font-size: medium;
+  background-color: rgb(161, 187, 235);
+  border-style: solid;
+  border-width: 3px;
+  border-color: rgb(40, 78, 148);
+  width: 60%;
+  padding: 2px;
+  margin: auto;
+  margin-top: 2em;
+  margin-bottom: 1em;
   border-radius: 2em;
+  border-width: 3px;
+}
+
+.MuiContainer-root {
+  padding-top: 12px;
+}
+
+.home-shows {
+  display: inline-flex;
+  margin-left: 30px;
 }

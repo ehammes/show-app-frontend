@@ -1,3 +1,12 @@
-appbar {
-  align-items: center;
+.headtitle {
+  display: inline-flex;
+  margin: auto;
+}
+
+.navbutton {
+  padding: 2px;
+}
+
+a:link {
+  text-decoration: none;
 }
