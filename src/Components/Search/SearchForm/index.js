@@ -1,9 +1,8 @@
 // import { FormControl, InputLabel, Input, FormHelperText, Button } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import useShows from '../../../Hooks/useShows';
 import axios from 'axios';
-import { setMovieDbShows } from '../../../Store/shows';
-import { addToList } from '../../../Hooks/useShows';
+import { getShows, setMovieDbShows } from '../../../Store/shows';
 import { ImageListItem, Container, Grid, Button, ButtonGroup, Paper } from '@mui/material';
 import { experimentalStyled as styled } from '@mui/material/styles';
 
@@ -11,7 +10,7 @@ const SERVER = process.env.REACT_APP_SERVER || 3002;
 
 function SearchForm() {
 
-  const { movieDBShowList, addToList } = useShows();
+  const { movieDBShowList } = useShows();
   const dispatch = useDispatch();
 
   const handleSubmit = async (event) => {
@@ -36,14 +35,14 @@ function SearchForm() {
     let movieDbShowToAdd = {
       title: show.name,
       image: show.poster_path,
-      description: 'a cool show',
+      description: 'A fantastic show you should definitely watch. A tour-de-force of emotion...',
       avgRating: 4,
       genre: 'drama',
       // uuid: 33,
     }
     console.log('normalized show to be added to db: ', movieDbShowToAdd);
-    // dispatch(addToList(movieDbShowToAdd));
     await axios.post(`${SERVER}/show`, movieDbShowToAdd);
+    dispatch(getShows());
   }
 
   return (
@@ -59,7 +58,6 @@ function SearchForm() {
         </label>
       </form>
       <div>
-
         <h2>Select Title to Add:</h2>
       </div>
 
@@ -92,7 +90,6 @@ function SearchForm() {
                   variant="contained"
                   size="small"
                 >
-                  {/* <Button>Learn More</Button> */}
                   <Button onClick={() => handleClick(show)}>Select This Title</Button>
                 </ButtonGroup>
               </Item>
