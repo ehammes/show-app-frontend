@@ -7,11 +7,10 @@ import Header from '../../Header';
 import { Container, FormControl, InputLabel, Input, Button, Accordion, AccordionSummary, Typography, FormHelperText } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 // import axios from 'axios';
-// let base64 = require('base-64');
-// import { When } from "react-if";
-
+import { When } from "react-if";
 
 // const SERVER = process.env.REACT_APP_SERVER
+
 
 const Login = () => {
 
@@ -20,58 +19,15 @@ const Login = () => {
   const { isLoggedIn, login } = useContext(AuthContext);
   const { handleChange, handleSubmit } = useForm(loginUser, defaultValues);
   const [expanded, setExpanded] = useState('login');
+
   // const [createSuccess, setCreateSuccess] = useState(null)
   // const [loginSuccess, setLoginSuccess] = useState(null)
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
-  // const [user, setUser] = useState('')
 
-  function loginUser({ email, password }) {
-    console.log('email', email)
-    console.log('password', password)
-    login(email, password)
-  }
-
+  function loginUser({ username, password }) {
+    login(username, password)
+  }  
 
   /// Need to revisit for when a user provides invalid credentials
-
-  // const handleSubmitLogin = async (event) => {
-  //   event.preventDefault();
-  //   const email = event.target.loginEmail.value;
-  //   const password = event.target.loginPassword.value;
-  //   let encodedAuthStr = `Basic ${base64.encode(`${email}:${password}`)}`;
-  //   const config = {
-  //     headers: {
-  //       'Authorization': encodedAuthStr
-  //     }
-  //   }
-  // const config = {
-  //   baseURL: '',
-  //   url: '/signin',
-  //   method: 'post',
-  //   // headers: {
-  //   //   'Authorization': `Basic ${basicEncoding}`
-  //   // },
-  //   auth: {
-  //     username,
-  //     password,
-  //   }
-  // }
-  // let response = await axios.post(`${SERVER}/signin`, null, config);
-  // console.log('response,', response)
-  // if (response.statusText === 'OK') {
-  //   setLoginSuccess(true)
-  //   setIsLoggedIn(true);
-  //   setUser(response.data)
-  // } else {
-  //   setLoginSuccess(false)
-  // }
-  // if (response.status === '403') {
-  //   console.log('error', 'invalid login')
-  // }
-  // console.log('loginSuccess', loginSuccess)
-  // }
-
-
 
 
   // const handleSubmitCreate = async (event) => {
@@ -98,7 +54,7 @@ const Login = () => {
       <Typography variant='h3'>Login / Create an Account</Typography>
       <Container maxWidth="md">
 
-        {/* <When condition={!isLoggedIn}> */}
+        <When condition={!isLoggedIn}>
           <Accordion
             expanded={expanded === 'login'}
             onChange={handleEventChange('login')}
@@ -119,8 +75,7 @@ const Login = () => {
 
                   <InputLabel htmlFor="my-input">Email address</InputLabel>
                   <Input
-                    id="loginEmail"
-                    name="email"
+                    name="username"
                     onChange={handleChange}
                     required
                     sx={
@@ -132,7 +87,6 @@ const Login = () => {
               <FormControl>
                 <InputLabel htmlFor="my-input">Password</InputLabel>
                 <Input
-                  id="loginPassword"
                   name="password"
                   onChange={handleChange}
                   required
@@ -147,23 +101,23 @@ const Login = () => {
                   variant="contained"
                 >Login</Button>
               </div>
-              {/* {loginSuccess === true ?
+              {isLoggedIn === true ?
                 <p>Success!</p>
                 :
                 null
               }
-              {loginSuccess === false ?
+              {isLoggedIn === false ?
                 <p>Invalid Credentials</p>
                 :
                 null
-              } */}
+              }
             </form>
           </Accordion>
-        {/* </When> */}
+        </When>
 
         {/* <Accordion
           expanded={expanded === 'createAccount'}
-          onChange={handleChange('createAccount')}
+          onChange={handleEventChange('createAccount')}
         >
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}

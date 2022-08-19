@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import cookie from 'react-cookies';
 import jwt_decode from 'jwt-decode';
 import axios from 'axios';
-import base64 from 'base-64';
 
 export const AuthContext = React.createContext();
 
@@ -15,80 +14,81 @@ function AuthProvider({ children }) {
   const [user, setUser] = useState({});
   const [error, setError] = useState(null);
 
-  const login = async (email, password) => {
+  const login = async (username, password) => {
 
-    // let encodedAuthStr = `Basic ${base64.encode(`${email}:${password}`)}`;
     const config = {
-        baseURL: `${SERVER}`,
-        url: '/signin',
-        method: 'post',
-        // headers: {
-        //   'Authorization': encodedAuthStr
-        // },
-        auth: {
-          email,
-          password,
-        }
+      baseURL: `${SERVER}`,
+      url: '/signin',
+      method: 'post',
+      auth: {
+        username,
+        password,
       }
+    }
 
-    const response = await axios(config);
-      const { token } = response.data
-      // console.log('response data', response.data)
-
-    if(token) {
+    try {
+      const response = await axios(config);
+      console.log('response data', response.data)
+      const { token, id } = response.data
+      if (token) {
         try {
-          _validateToken(token);
+          _validateToken(token, id);
         } catch (e) {
           console.error(e);
         }
       }
+    } catch (e) {
+      console.log('error message', e.message)
     }
-
-    function _validateToken(token, id) {
-      try {
-        let validUser = jwt_decode(token);
-        if (validUser) {
-          setUser(validUser);
-          setUserId(id)
-          setIsLoggedIn(true);
-          cookie.save('auth', token)
-        }
-      } catch (e) {
-        setIsLoggedIn(false);
-        setError(e)
-      }
-    }
-
-    const logout = () => {
-      setUser({});
-      setIsLoggedIn(false);
-      setError(null);
-      cookie.remove('auth');
-    }
-
-    useEffect(() => {
-
-      let token = cookie.load('auth');
-
-      if (token) {
-        _validateToken(token);
-      }
-    }, []);
-
-    const values = {
-      isLoggedIn,
-      user,
-      error,
-      login,
-      logout,
-    }
-
-    return (
-      <AuthContext.Provider value={values}>
-        {children}
-      </AuthContext.Provider>
-    )
-
   }
 
-  export default AuthProvider
+  function _validateToken(token, id) {
+    try {
+      let validUser = jwt_decode(token);
+      console.log('validUser', validUser)
+      if (validUser) {
+        setUser(validUser);
+        setUserId(id)
+        setIsLoggedIn(true);
+        cookie.save('auth', token)
+      }
+    } catch (e) {
+      setIsLoggedIn(false);
+      setError(e)
+    }
+  }
+
+  const logout = () => {
+    setUser({});
+    setIsLoggedIn(false);
+    setError(null);
+    cookie.remove('auth');
+  }
+
+  useEffect(() => {
+
+    let token = cookie.load('auth');
+
+    if (token) {
+      _validateToken(token);
+    }
+  }, []);
+
+  const values = {
+    isLoggedIn,
+    user,
+    error,
+    userId,
+    login,
+    logout,
+  }
+
+  return (
+    <AuthContext.Provider value={values}>
+      {children}
+    </AuthContext.Provider>
+  )
+
+}
+
+export default AuthProvider
