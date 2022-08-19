@@ -1,0 +1,16 @@
+.search-message {
+  margin-top: 6vw;
+}
+
+.search-form {
+  display: flex;
+  justify-content: center;
+}
+
+.search-button {
+  margin-top: 4px;
+}
+
+.moviedb-shows {
+  margin-top: 6vw;
+}

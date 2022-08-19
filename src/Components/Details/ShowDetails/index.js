@@ -47,7 +47,7 @@ function ShowDetails({ someId }) {
               <Typography gutterBottom variant="h5" component="div">
                 {oneShow.title}
               </Typography>
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body3" color="text.primary">
                 {oneShow.description}
               </Typography>
             </CardContent>
@@ -60,9 +60,11 @@ function ShowDetails({ someId }) {
           Reviews for {oneShow.title}
         </Typography>
         {reviewList.map((review, idx) =>
-          <Typography variant="body2" color="text.secondary">
-            "{review.review}"
-          </Typography>
+          <div className='single-review'>
+            <Typography variant="body3" color="text.primary">
+              "{review.review}"
+            </Typography>
+          </div>
         )}
       </div>
       <div className='leave-review'>
@@ -71,32 +73,25 @@ function ShowDetails({ someId }) {
           Leave your own review:
         </Typography>
       </div>
-      <div className='review-form'>
-        <Box
-          display="flex"
-          alignItems="center"
-          component="form"
-          onSubmit={handleSubmit}
-          sx={{
-            '& .MuiTextField-root': { m: 1, width: '40ch' },
-          }}
-          noValidate
-          autoComplete="off"
-        >
-          <FormGroup>
+      <form
+        onSubmit={handleSubmit}
+      >
+        <div className='review-form'>
 
+          <FormGroup
+            sx={{
+              '& .MuiTextField-root': { m: 1, width: '40ch' },
+            }}>
             <TextField
               id="outlined-multiline-flexible"
               label="Review"
               multiline
               maxRows={4}
-            // value="add review here"
-            // onChange={handleChange}
             />
-            <Button variant="contained" style={{ width: '50%', margin: 'auto' }} >Submit</Button>
+            <Button type="submit" variant="contained" style={{ width: '50%', margin: 'auto' }} >Submit</Button>
           </FormGroup>
-        </Box>
-      </div>
+        </div>
+      </form>
       <Footer></Footer>
     </>
   );
