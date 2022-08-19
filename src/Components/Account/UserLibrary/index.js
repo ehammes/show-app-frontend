@@ -39,7 +39,7 @@ function UserLibrary() {
       <div className='userLibrary'>
       <Paper elevation={4}>
       <Container maxWidth="md">
-        <ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164} key={'imgList'}>
+        <ImageList sx={{ width: 750, height: 800 }} cols={3} rowHeight={164} key={'imgList'}>
           {userShowList.map((item) => (
             <ImageListItem key={item.image}>
               <img
