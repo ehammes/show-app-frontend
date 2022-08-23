@@ -28,7 +28,7 @@ function AuthProvider({ children }) {
 
     try {
       const response = await axios(config);
-      console.log('response data', response.data)
+      // console.log('response data', response.data)
       const { token, id } = response.data
       if (token) {
         try {

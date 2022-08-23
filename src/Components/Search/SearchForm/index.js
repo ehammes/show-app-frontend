@@ -21,9 +21,9 @@ function SearchForm() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const title = event.target.addShow.value;
-    console.log('title: ', { params: { title } });
+    // console.log('title: ', { params: { title } });
     let response = await axios.get(`${SERVER}/moviedb`, { params: { title } });
-    console.log('response data: ', response.data);
+    // console.log('response data: ', response.data);
     dispatch(setMovieDbShows(response.data));
   }
 
@@ -36,7 +36,7 @@ function SearchForm() {
   }));
 
   const handleClick = async (show) => {
-    console.log('clicked show: ', show);
+    // console.log('clicked show: ', show);
     let movieDbShowToAdd = {
       title: show.name,
       image: show.poster_path,
@@ -45,7 +45,7 @@ function SearchForm() {
       genre: 'drama',
       // uuid: 33,
     }
-    console.log('normalized show to be added to db: ', movieDbShowToAdd);
+    // console.log('normalized show to be added to db: ', movieDbShowToAdd);
     await axios.post(`${SERVER}/show`, movieDbShowToAdd);
     dispatch(getShows());
   }
