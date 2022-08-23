@@ -15,7 +15,7 @@ export const getUsers = () => async (dispatch, getState) => {
   // this will ultimately hit our 'user' database table
   let response = await axios.get(`${SERVER}/user`);
   //let response = await axios.get(`http://localhost:3001/show`);
-  console.log('USER response: ', response.data);
+  // console.log('USER response: ', response.data);
   dispatch(setUsers(response.data));
 };
 

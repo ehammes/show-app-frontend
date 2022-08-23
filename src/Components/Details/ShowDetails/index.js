@@ -28,7 +28,7 @@ function ShowDetails({ someId }) {
   let oneShow = showList.find(show => show.id === +params.id);
 
   function handleSubmit() {
-    console.log('review submitted');
+    // console.log('review submitted');
   }
 
   return (
