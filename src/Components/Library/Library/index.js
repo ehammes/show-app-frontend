@@ -40,7 +40,7 @@ const Library = () => {
         >
           {showList.map((show, idx) =>
             <Grid
-              xs={2} sm={4} md={4}
+              // xs={2} sm={4} md={4}
               key={`show-${idx}`}
             >
               <Item

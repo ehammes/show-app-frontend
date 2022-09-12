@@ -33,13 +33,13 @@ const Login = () => {
     const email = event.target.createEmail.value;
     const password = event.target.createPassword.value;
     let response = await axios.post(`${SERVER}/signup`, { email, password });
-    console.log('response', response)
+    // console.log('response', response)
     if (response.statusText === 'Created') {
       setCreateSuccess(true)
     } else {
       setCreateSuccess(false)
     }
-    console.log('createSuccess', createSuccess)
+    // console.log('createSuccess', createSuccess)
   }
 
   const handleEventChange = (panel) => (event, newExpanded) => {
