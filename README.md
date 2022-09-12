@@ -1,70 +1,132 @@
-# Getting Started with Create React App
+# The Binge - A TV Review App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Team
 
-## Available Scripts
+- Elizabeth Hammes
+- Guy Farley
+- Katharine Swilley
 
-In the project directory, you can run:
+## Problem Domain
 
-### `npm start`
+With all the TV shows currently available, it's increasingly difficult to choose your next show. What if there was a site where you could go to see personal recommendations from other users who have watched and reviewed TV shows? This avoids relying on recommendations from streaming services (who are only pushing their own shows) or critical review sites (Iike Rotten Tomatoes), and helps you to find shows that you will actually enjoy watching.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Project Overview
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+**Introducing "The Binge", a more personal TV review app**
 
-### `npm test`
+The Binge allows a user to:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Create an account and login
+- View shows and recommendations for shows other users have watched and reviewed
+- Add a new show to the database (by searching a 3rd party API)
+- Select a title to view additional info and all reviews
+- Visit their personal library page to see shows they have reviewed
 
-### `npm run build`
+*Technologies used:*
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Frontend: React, Redux, Material UI
+- Backend: PostgreSQL, SQL/Sequelize, Axios, Express
+- Project Management: Invision, GitHub
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Application
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Application is deployed here: <https://the-binge-tv.netlify.app/>
 
-### `npm run eject`
+## Features & User Stories
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+**As a user, I want to be able to browse a library of TV shows that have been reviewed by other users to help me decide what to watch next**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+*Description:*
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- Create library page
+- Display list of tv shows (from db): title, image, CTA
+- Add Library link to navigation
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+*Acceptance Criteria:*
 
-## Learn More
+- Any user can view the library page of tv shows and click the CTA button to view additional show details, including reviews left by other users
+- A user can navigate to the Library page by using the navigation bar
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+**As a user, I want to be able to log in to my account to access all capabilities the site has to offer**
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+*Description:*
 
-### Code Splitting
+- Add Login / Logout to Nav
+- Enable/Disable features based on logged in status
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+*Acceptance Criteria:*
 
-### Analyzing the Bundle Size
+- A user can login to their account using their email and password credentials
+- A user can logout of their account
+- A user has access to additional features when logged into their account: add TV shows to their account, leave reviews, add Shows to library
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+**As a user I want to sign up (create an account) so that I can share what shows I like with others**
 
-### Making a Progressive Web App
+*Description:*
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- Add Create Account to Nav
+- Create account modal: username, password
 
-### Advanced Configuration
+*Acceptance Criteria:*
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- A user can create an account with a unique email address and a password
 
-### Deployment
+**As a user, I want to be able to leave a review for a TV Show so that I can share my feedback and add the show to my Show List in my Account**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+*Description:*
 
-### `npm run build` fails to minify
+- View show specific page, populated from database
+- Add a review via review button
+- Adds TV Show to user's profile
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+*Acceptance Criteria:*
+
+- A user can view a show specific page (show title, image, description, and reviews)
+- A user can write a review for the show
+- Show is added to user's account when they leave a review
+
+**As a user, I want to be able to search for a TV Show that doesn’t exist in the library so that I can access the data available for the show I’ve watched**
+
+*Description:*
+
+- Add CTA button to library page that allows a user to add a tv show to library
+- Create search modal to search for TV Show
+- Show search results: Title, image, CTA button (linked to show specific page based on API data)
+- View show specific page, populated with API data
+- Add a review via review button
+- POST request, creating record of TV Show and record in db and adds TV Show to user's profile
+
+*Acceptance Criteria:*
+
+- A user can choose to add a TV show to the library
+- A user can search TV Shows against the Movie Database API (20 max search results)
+- A user can view the show specific page
+- A user can leave the first review for the TV Show
+- The TV show is added to the database after the first review is added
+- The TV show is added to the user's account
+
+## Documentation
+
+### Wireframe
+
+![wireframe](./public/images/wireframe.png)
+
+### SQL Database Schema
+
+![db-schema](./public/images/db_schema.png)
+
+### Web Request/Response Cycle
+
+![UML](./public/images/uml.png)
+
+## Links and Resources
+
+<https://developers.themoviedb.org>
+
+<https://react-redux.js.org>
+
+<https://www.npmjs.com/package/axios>
+
+<https://reactjs.org>
+
+<https://mui.com>
