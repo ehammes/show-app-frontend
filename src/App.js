@@ -4,9 +4,6 @@ import { getShows } from './Store/shows';
 import { getReviews } from './Store/reviews';
 import { getUsers } from './Store/users';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import useShows from './Hooks/useShows';
-import useReviews from './Hooks/useReviews';
-import useUsers from './Hooks/useUsers';
 import ShowDetails from './Components/Details/ShowDetails';
 
 import Header from './Components/Header';
